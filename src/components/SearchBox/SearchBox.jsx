@@ -7,8 +7,8 @@ const SearchBox = ({inputValue = "", handleChange}) => {
 
   return (
     <div className={searchBox}>
-      <label htmlFor={`input${id}`}>Find contacts by name</label>
-      <input id={`input${id}`} type="text" value={inputValue} onChange={handleChange}/>
+      <label htmlFor={`searchBoxInput${id}`}>Find contacts by name</label>
+      <input id={`searchBoxInput${id}`} type="text" value={inputValue} onChange={handleChange}/>
       <p>{inputValue}</p>
 
     </div>

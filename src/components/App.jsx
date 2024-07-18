@@ -1,4 +1,4 @@
-// import ContactForm from "./ContactForm/ContactForm";
+import ContactForm from "./ContactForm/ContactForm";
 import { useState } from "react";
 import SearchBox from "./SearchBox/SearchBox";
 import ContactList from "./ContactList/ContactList";
@@ -18,16 +18,15 @@ function App() {
     setInputValue(evt.target.value);
   };
 
-    // Фільтрація контактів на основі введеного значення
-    const filteredContacts = contacts.filter(contact =>
-      contact.name.toLowerCase().includes(inputValue.toLowerCase())
-    );
-  
+  // Фільтрація контактів на основі введеного значення
+  const filteredContacts = contacts.filter((contact) =>
+    contact.name.toLowerCase().includes(inputValue.toLowerCase())
+  );
 
   return (
     <div className={container}>
       <h1 className={phonebookTitle}>Phonebook</h1>
-      {/* <ContactForm /> */}
+      <ContactForm />
       <SearchBox inputValue={inputValue} handleChange={handleChange} />
       <ContactList contacts={filteredContacts} />
     </div>

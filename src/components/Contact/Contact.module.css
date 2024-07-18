@@ -1,6 +1,5 @@
 .contactContainer {
-    box-sizing: border-box;
-
+  box-sizing: border-box;
   width: 320px;
   padding: 12px;
   border: 2px solid black;
@@ -33,13 +32,11 @@
   transform: rotate(100deg);
 }
 
-
 .contactContainer button {
-    height: 40px;
-    padding: 8px 12px;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 20px;
-    border: 2px solid rgb(131, 131, 131);
-    border-radius: 4px;
-  }
-  
+  height: 40px;
+  padding: 8px 12px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 20px;
+  border: 2px solid rgb(131, 131, 131);
+  border-radius: 4px;
+}
