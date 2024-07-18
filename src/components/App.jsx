@@ -1,5 +1,6 @@
-import ContactForm from "./ContactForm/ContactForm";
 import { useState } from "react";
+import { nanoid } from "nanoid";
+import ContactForm from "./ContactForm/ContactForm";
 import SearchBox from "./SearchBox/SearchBox";
 import ContactList from "./ContactList/ContactList";
 import styles from "./App.module.css";
@@ -13,11 +14,23 @@ const contacts = [
 
 function App() {
   const { container, phonebookTitle } = styles;
+  const handleSumit = (evt) => {
+    evt.preventDefault();
+    const formElements = evt.target.elements;
+    const newContact = {
+      id: nanoid(),
+      name: formElements.name.value,
+      number: formElements.number.value,
+    };
+    console.log(newContact);
+    contacts.push(newContact);
+    evt.target.reset(); 
+  };
+
   const [inputValue, setInputValue] = useState("");
   const handleChange = (evt) => {
     setInputValue(evt.target.value);
   };
-
   // Фільтрація контактів на основі введеного значення
   const filteredContacts = contacts.filter((contact) =>
     contact.name.toLowerCase().includes(inputValue.toLowerCase())
@@ -26,9 +39,9 @@ function App() {
   return (
     <div className={container}>
       <h1 className={phonebookTitle}>Phonebook</h1>
-      <ContactForm />
+      <ContactForm handleSumit={handleSumit} />
       <SearchBox inputValue={inputValue} handleChange={handleChange} />
-      <ContactList contacts={filteredContacts} />
+      <ContactList handleSumit={handleSumit} contacts={filteredContacts} />
     </div>
   );
 }

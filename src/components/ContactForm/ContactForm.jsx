@@ -1,12 +1,12 @@
 import { useId } from "react";
 import styles from "./ContactForm.module.css";
 
-const ContactForm = () => {
-  const id = useId();
+const ContactForm = ({ handleSumit }) => {
   const { contactForm } = styles;
+  const id = useId();
 
   return (
-    <form className={contactForm}>
+    <form onSubmit={handleSumit} className={contactForm}>
       <div>
         <label htmlFor={`contactFormName${id}`}>Name</label>
         <input id={`contactFormName${id}`} type="text" name="name" required />
@@ -16,8 +16,8 @@ const ContactForm = () => {
         <input
           id={`contactFormNumber${id}`}
           type="tel"
-          pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" 
-          placeholder="123-456-7890" /* Додаємо зразок формату у плейсхолдер */
+          pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+          placeholder="000-000-0000" /* Додаємо зразок формату у плейсхолдер */
           name="number"
           required
         />
