@@ -1,12 +1,12 @@
 import { useId } from "react";
 import styles from "./ContactForm.module.css";
 
-const ContactForm = ({ handleSumit }) => {
+const ContactForm = ({ handleSubmit }) => {
   const { contactForm } = styles;
   const id = useId();
 
   return (
-    <form onSubmit={handleSumit} className={contactForm}>
+    <form onSubmit={handleSubmit} className={contactForm}>
       <div>
         <label htmlFor={`contactFormName${id}`}>Name</label>
         <input id={`contactFormName${id}`} type="text" name="name" required />
