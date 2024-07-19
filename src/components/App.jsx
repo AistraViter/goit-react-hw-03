@@ -5,7 +5,7 @@ import SearchBox from "./SearchBox/SearchBox";
 import ContactList from "./ContactList/ContactList";
 import styles from "./App.module.css";
 
-const contacts  = [
+const contacts = [
   { id: "id-1", name: "Rosie Simpson", number: "459-12-56" },
   { id: "id-2", name: "Hermione Kline", number: "443-89-12" },
   { id: "id-3", name: "Eden Clements", number: "645-17-79" },
@@ -17,8 +17,6 @@ function App() {
   const [newContacts, setContacts] = useState(contacts);
   const [inputValue, setInputValue] = useState("");
 
-
-
   const handleSubmit = (evt) => {
     evt.preventDefault();
     const formElements = evt.target.elements;
@@ -27,15 +25,19 @@ function App() {
       name: formElements.name.value,
       number: formElements.number.value,
     };
-    console.log(newContact);
     setContacts((prevContacts) => [...prevContacts, newContact]);
     evt.target.reset();
+  };
+
+  const deleteContact = (id) => {
+    setContacts((prevContacts) =>
+      prevContacts.filter((contact) => contact.id !== id)
+    );
   };
 
   const handleChange = (evt) => {
     setInputValue(evt.target.value);
   };
-  // Фільтрація контактів на основі введеного значення
   const filteredContacts = newContacts.filter((contact) =>
     contact.name.toLowerCase().includes(inputValue.toLowerCase())
   );
@@ -43,11 +45,10 @@ function App() {
   return (
     <div className={container}>
       <h1 className={phonebookTitle}>Phonebook</h1>
-      <ContactForm
-        handleSubmit={handleSubmit}
-      />
+      <ContactForm handleSubmit={handleSubmit} deleteContact={deleteContact} />
       <SearchBox inputValue={inputValue} handleChange={handleChange} />
-      <ContactList contacts={filteredContacts} />
+      <ContactList contacts={filteredContacts} deleteContact={deleteContact} />
+      
     </div>
   );
 }

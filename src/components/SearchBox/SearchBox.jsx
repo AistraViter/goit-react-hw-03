@@ -9,7 +9,6 @@ const SearchBox = ({inputValue = "", handleChange}) => {
     <div className={searchBox}>
       <label htmlFor={`searchBoxInput${id}`}>Find contacts by name</label>
       <input id={`searchBoxInput${id}`} type="text" value={inputValue} onChange={handleChange}/>
-      <p>{inputValue}</p>
 
     </div>
   );
