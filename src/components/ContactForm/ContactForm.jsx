@@ -1,5 +1,6 @@
 import { useId } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
+import MaskedInput from "react-text-mask";
 import * as Yup from "yup";
 import styles from "./ContactForm.module.css";
 
@@ -9,7 +10,10 @@ const contactFormSchema = Yup.object().shape({
     .max(50, "Too Long!")
     .required("Required"),
   number: Yup.string()
-    .matches(/^[0-9]{3}-[0-9]{3}-[0-9]{2}$/, "Invalid phone number format! Should be like: 000-000-00")
+    .matches(
+      /^[0-9]{3}-[0-9]{3}-[0-9]{2}$/,
+      "Invalid phone number format! Should be like: 000-000-00"
+    )
     .required("Required"),
 });
 
@@ -36,12 +40,28 @@ const ContactForm = ({ handleSubmit }) => {
         </div>
         <div>
           <label htmlFor={`contactFormNumber${id}`}>Number</label>
-          <Field
-            id={`contactFormNumber${id}`}
-            type="tel"
-            placeholder="000-000-00" /* Додаємо зразок формату у плейсхолдер */
-            name="number"
-          />
+          <Field name="number">
+            {({ field }) => (
+              <MaskedInput
+                {...field}
+                mask={[
+                  /\d/,
+                  /\d/,
+                  /\d/,
+                  "-",
+                  /\d/,
+                  /\d/,
+                  /\d/,
+                  "-",
+                  /\d/,
+                  /\d/,
+                ]}
+                placeholder="000-000-00"
+                id={`contactFormNumber${id}`}
+                type="tel"
+              />
+            )}
+          </Field>{" "}
           <ErrorMessage name="number" component="span" />
         </div>
 
