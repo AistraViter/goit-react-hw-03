@@ -3,16 +3,17 @@ import { Formik, Form, Field } from "formik";
 import styles from "./ContactForm.module.css";
 
 const ContactForm = ({ handleSubmit }) => {
-  const { contactForm } = styles;
+    const { contactForm } = styles;
   const id = useId();
   const initialValues = {
     name: "",
     number: "",
   };
 
+
   return (
-    <Formik initialValues={initialValues} onSubmit={() => {}}>
-      <Form onSubmit={handleSubmit} className={contactForm}>
+    <Formik initialValues={initialValues} onSubmit={handleSubmit}>
+      <Form className={contactForm}>
         <div>
           <label htmlFor={`contactFormName${id}`}>Name</label>
           <Field id={`contactFormName${id}`} type="text" name="name" required />

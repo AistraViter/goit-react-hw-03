@@ -17,16 +17,15 @@ function App() {
   const [newContacts, setContacts] = useState(contacts);
   const [inputValue, setInputValue] = useState("");
 
-  const handleSubmit = (evt) => {
-    evt.preventDefault();
-    const formElements = evt.target.elements;
+  const handleSubmit = (values, actions) => {
     const newContact = {
       id: nanoid(),
-      name: formElements.name.value,
-      number: formElements.number.value,
+      name: values.name,
+      number: values.number,
     };
     setContacts((prevContacts) => [...prevContacts, newContact]);
-    evt.target.reset();
+    actions.resetForm();
+
   };
 
   const deleteContact = (id) => {
@@ -45,10 +44,9 @@ function App() {
   return (
     <div className={container}>
       <h1 className={phonebookTitle}>Phonebook</h1>
-      <ContactForm handleSubmit={handleSubmit} deleteContact={deleteContact} />
+      <ContactForm handleSubmit={handleSubmit} />
       <SearchBox inputValue={inputValue} handleChange={handleChange} />
       <ContactList contacts={filteredContacts} deleteContact={deleteContact} />
-      
     </div>
   );
 }
