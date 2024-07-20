@@ -1,33 +1,48 @@
 import { useId } from "react";
-import { Formik, Form, Field } from "formik";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
 import styles from "./ContactForm.module.css";
 
-const ContactForm = ({ handleSubmit }) => {
-    const { contactForm } = styles;
-  const id = useId();
-  const initialValues = {
-    name: "",
-    number: "",
-  };
+const contactFormSchema = Yup.object().shape({
+  name: Yup.string()
+    .min(3, "Too Short!")
+    .max(50, "Too Long!")
+    .required("Required"),
+  number: Yup.string()
+    .matches(/^[0-9]{3}-[0-9]{3}-[0-9]{2}$/, "Invalid phone number format! Should be like: 000-000-00")
+    .required("Required"),
+});
 
+const initialValues = {
+  name: "",
+  number: "",
+};
+
+const ContactForm = ({ handleSubmit }) => {
+  const { contactForm } = styles;
+  const id = useId();
 
   return (
-    <Formik initialValues={initialValues} onSubmit={handleSubmit}>
+    <Formik
+      initialValues={initialValues}
+      onSubmit={handleSubmit}
+      validationSchema={contactFormSchema}
+    >
       <Form className={contactForm}>
         <div>
           <label htmlFor={`contactFormName${id}`}>Name</label>
-          <Field id={`contactFormName${id}`} type="text" name="name" required />
+          <Field id={`contactFormName${id}`} type="text" name="name" />
+          <ErrorMessage name="name" component="span" />
         </div>
         <div>
           <label htmlFor={`contactFormNumber${id}`}>Number</label>
           <Field
             id={`contactFormNumber${id}`}
             type="tel"
-            pattern="[0-9]{3}-[0-9]{3}-[0-9]{2}"
             placeholder="000-000-00" /* Додаємо зразок формату у плейсхолдер */
             name="number"
-            required
           />
+          <ErrorMessage name="number" component="span" />
         </div>
 
         <button type="submit">Add contact</button>
